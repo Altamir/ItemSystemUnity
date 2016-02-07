@@ -2,41 +2,50 @@
 using System.Collections;
 using System;
 
-public class ISObject : IISObject
+
+namespace Altamir.ItemSystem
 {
-    [SerializeField] Sprite _icon;
-    [SerializeField] string _name;
-    [SerializeField] int _value;
-    [SerializeField] int _burden;
-    [SerializeField] ISQuality _quality;
-
-    public int ISBurden
+    public class ISObject : IISObject
     {
-        get { return _burden; }
-        set { _burden = value; }
-    }
+        [SerializeField]
+        Sprite _icon;
+        [SerializeField]
+        string _name;
+        [SerializeField]
+        int _value;
+        [SerializeField]
+        int _burden;
+        [SerializeField]
+        ISQuality _quality;
 
-    public Sprite ISIcon
-    {
-        get { return _icon; }
-        set { _icon = value; }
-    }
+        public int ISBurden
+        {
+            get { return _burden; }
+            set { _burden = value; }
+        }
 
-    public string ISName
-    {
-        get { return _name; }
-        set { _name = value; }
-    }
+        public Sprite ISIcon
+        {
+            get { return _icon; }
+            set { _icon = value; }
+        }
 
-    public ISQuality ISQuality
-    {
-        get { return _quality; }
-        set { _quality = value; }
-    }
+        public string ISName
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
-    public int ISValue
-    {
-        get { return _value; }
-        set { _value = value; }
+        public ISQuality ISQuality
+        {
+            get { return _quality; }
+            set { _quality = value; }
+        }
+
+        public int ISValue
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
     }
 }
