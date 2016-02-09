@@ -5,6 +5,7 @@ using System;
 
 namespace Altamir.ItemSystem
 {
+    [System.Serializable]
     public class ISObject : IISObject
     {
         [SerializeField]
