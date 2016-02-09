@@ -52,6 +52,19 @@ namespace Altamir.ItemSystem.Editor
         {
             //AddQualityToDB();
             ListView();
+
+            EditorGUILayout.BeginHorizontal("BOX", GUILayout.ExpandWidth(true));
+            ButtonBar();
+            EditorGUILayout.EndHorizontal();
+        }
+
+        void ButtonBar()
+        {
+            EditorGUILayout.LabelField("Count: " + qualityDatabase.Count);
+            if (GUILayout.Button("Add"))
+            {
+                qualityDatabase.Add(new ISQuality());
+            }
         }
         
         private void AddQualityToDB()
