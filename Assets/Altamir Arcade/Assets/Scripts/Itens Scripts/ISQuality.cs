@@ -13,7 +13,7 @@ namespace Altamir.ItemSystem
         [SerializeField]
         Sprite _icon;
 
-        ISQuality()
+        public ISQuality()
         {
             this._name = "Common";
             this._icon = new Sprite();
