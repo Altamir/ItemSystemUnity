@@ -4,9 +4,10 @@ using System.Collections;
 
 namespace Altamir.ItemSystem.Editor
 {
-    public class ISQualityDatabaseEditor : EditorWindow
+    public partial class ISQualityDatabaseEditor : EditorWindow
     {
         const int SPRITE_BUTTON_SIZE = 92;
+
         const string DATABASE_FILE_NAME = @"altQualityDatabase.asset";
         const string DATABASE_FOLDER_NAME = @"Database";
         const string DATABASE_FULL_PATH = @"Assets/" + DATABASE_FOLDER_NAME + "/" + DATABASE_FILE_NAME;
@@ -14,6 +15,9 @@ namespace Altamir.ItemSystem.Editor
         ISQualityDatabase qualityDatabase;
         ISQuality selectedItem;
         Texture2D selectedTexture;
+        Vector2 _scrollPosi;
+
+        int selectedIndex = -1;
 
         [MenuItem("AL-IS/Database/Quality Editor %#i")]
         public static void Init()
@@ -46,7 +50,8 @@ namespace Altamir.ItemSystem.Editor
 
         void OnGUI()
         {
-            AddQualityToDB();
+            //AddQualityToDB();
+            ListView();
         }
         
         private void AddQualityToDB()
@@ -56,6 +61,10 @@ namespace Altamir.ItemSystem.Editor
             if (selectedItem.Icon)
             {
                 selectedTexture = selectedItem.Icon.texture;
+            }
+            else
+            {
+                selectedTexture = null;
             }
 
             if(GUILayout.Button(selectedTexture, 
@@ -76,6 +85,9 @@ namespace Altamir.ItemSystem.Editor
             if (GUILayout.Button("Save"))
             {
                 if (selectedItem == null)
+                    return;
+
+                if (selectedItem.Name == "")
                     return;
                 qualityDatabase.Add(selectedItem);
                 selectedItem = new ISQuality();
