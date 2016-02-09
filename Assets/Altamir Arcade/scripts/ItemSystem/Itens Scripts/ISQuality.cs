@@ -15,7 +15,7 @@ namespace Altamir.ItemSystem
 
         public ISQuality()
         {
-            this._name = "Common";
+            this._name = "";
             this._icon = new Sprite();
         }
         public Sprite Icon
