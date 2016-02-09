@@ -6,7 +6,7 @@ namespace Altamir.ItemSystem.Editor
 {
     public partial class ISQualityDatabaseEditor : EditorWindow
     {
-        const int SPRITE_BUTTON_SIZE = 92;
+        const int SPRITE_BUTTON_SIZE = 62;
 
         const string DATABASE_FILE_NAME = @"altQualityDatabase.asset";
         const string DATABASE_FOLDER_NAME = @"Database";

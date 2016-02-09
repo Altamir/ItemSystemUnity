@@ -8,8 +8,8 @@ namespace Altamir.ItemSystem
 {
     public class ISQualityDatabase : ScriptableObject
     {
-        [SerializeField]
-        public List<ISQuality> database = new List<ISQuality>();
+        //[SerializeField]
+        List<ISQuality> database = new List<ISQuality>();
 
         public void Add(ISQuality item)
         {

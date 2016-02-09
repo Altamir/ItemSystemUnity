@@ -20,6 +20,7 @@ namespace Altamir.ItemSystem.Editor
         {
             for (int cnt = 0; cnt < qualityDatabase.Count; cnt++)
             {
+                EditorGUILayout.BeginHorizontal("BOX");
                 if (qualityDatabase.Get(cnt).Icon)
                     selectedTexture = qualityDatabase.Get(cnt).Icon.texture;
                 else
@@ -43,11 +44,23 @@ namespace Altamir.ItemSystem.Editor
                     }
                     Repaint();
                 }
-            
+
+                EditorGUILayout.BeginVertical();
 
                 qualityDatabase.Get(cnt).Name =  GUILayout.TextField(qualityDatabase.Get(cnt).Name);
 
-                GUILayout.Button("X");
+                if (GUILayout.Button("X" , GUILayout.Width(42), GUILayout.Height(30)) )
+                {
+                    if(EditorUtility.DisplayDialog("Delete Quality",
+                                             "Voce tem certeza que quer deletar" + qualityDatabase.Get(cnt).Name + "?" ,
+                                             "Delete",
+                                             "Cancel"))
+                    {
+                        qualityDatabase.Remove(cnt);
+                    }
+                }
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.EndHorizontal();
             }
         }
     }
