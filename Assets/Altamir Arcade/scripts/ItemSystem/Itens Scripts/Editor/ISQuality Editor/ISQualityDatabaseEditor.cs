@@ -8,9 +8,9 @@ namespace Altamir.ItemSystem.Editor
     {
         const int SPRITE_BUTTON_SIZE = 62;
 
-        const string DATABASE_FILE_NAME = @"altQualityDatabase.asset";
-        const string DATABASE_FOLDER_NAME = @"Database";
-        const string DATABASE_FULL_PATH = @"Assets/" + DATABASE_FOLDER_NAME + "/" + DATABASE_FILE_NAME;
+        const string DATABASE_NAME = @"altQualityDatabase.asset";
+        const string DATABASE_PATH = @"Database";
+        const string DATABASE_FULL_PATH = @"Assets/" + DATABASE_PATH + "/" + DATABASE_NAME;
 
         ISQualityDatabase qualityDatabase;
         ISQuality selectedItem;
@@ -31,26 +31,18 @@ namespace Altamir.ItemSystem.Editor
 
         void OnEnable()
         {
-            qualityDatabase = AssetDatabase.LoadAssetAtPath(DATABASE_FULL_PATH, typeof(ISQualityDatabase)) as ISQualityDatabase;
-
-            if (qualityDatabase == null)
-            {
-                if (!AssetDatabase.IsValidFolder("Assets/" + DATABASE_FOLDER_NAME))
-                {
-                    AssetDatabase.CreateFolder(@"Assets", DATABASE_FOLDER_NAME);
-                }
-                qualityDatabase = ScriptableObject.CreateInstance<ISQualityDatabase>();
-                AssetDatabase.CreateAsset(qualityDatabase, DATABASE_FULL_PATH);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-            }
-
-            selectedItem = new ISQuality();
+            qualityDatabase = ScriptableObject.CreateInstance<ISQualityDatabase>();
+            qualityDatabase = qualityDatabase.GetDatabase<ISQualityDatabase>(DATABASE_PATH, DATABASE_NAME); 
         }
 
         void OnGUI()
         {
-            //AddQualityToDB();
+            if (qualityDatabase == null)
+            {
+                Debug.LogWarning("Quality databese not loader!");
+                return;
+            }
+
             ListView();
 
             EditorGUILayout.BeginHorizontal("BOX", GUILayout.ExpandWidth(true));
@@ -60,53 +52,13 @@ namespace Altamir.ItemSystem.Editor
 
         void ButtonBar()
         {
-            EditorGUILayout.LabelField("Count: " + qualityDatabase.Count);
+            EditorGUILayout.LabelField("Qualitis: " + qualityDatabase.Count);
             if (GUILayout.Button("Add"))
             {
                 qualityDatabase.Add(new ISQuality());
             }
         }
-        
-        private void AddQualityToDB()
-        {
-            selectedItem.Name = EditorGUILayout.TextField("Name: ", selectedItem.Name);
 
-            if (selectedItem.Icon)
-            {
-                selectedTexture = selectedItem.Icon.texture;
-            }
-            else
-            {
-                selectedTexture = null;
-            }
-
-            if(GUILayout.Button(selectedTexture, 
-                                GUILayout.Width(SPRITE_BUTTON_SIZE),
-                                GUILayout.Height(SPRITE_BUTTON_SIZE)))
-            {
-                int controlerID = EditorGUIUtility.GetControlID(FocusType.Passive);
-                EditorGUIUtility.ShowObjectPicker<Sprite>(null, true, null, controlerID);
-            }
-
-            string commandName = Event.current.commandName;
-            if(commandName == "ObjectSelectorUpdated")
-            {
-                selectedItem.Icon = (Sprite) EditorGUIUtility.GetObjectPickerObject();
-                Repaint();
-            }
-
-            if (GUILayout.Button("Save"))
-            {
-                if (selectedItem == null)
-                    return;
-
-                if (selectedItem.Name == "")
-                    return;
-                qualityDatabase.Add(selectedItem);
-                selectedItem = new ISQuality();
-            }
-
-        }
     }
     
 }
