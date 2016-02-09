@@ -33,7 +33,7 @@ namespace Altamir.ItemSystem.Editor
             {
                 if (!AssetDatabase.IsValidFolder("Assets/" + DATABASE_FOLDER_NAME))
                 {
-                    AssetDatabase.CreateFolder("Assets/", DATABASE_FOLDER_NAME);
+                    AssetDatabase.CreateFolder(@"Assets", DATABASE_FOLDER_NAME);
                 }
                 qualityDatabase = ScriptableObject.CreateInstance<ISQualityDatabase>();
                 AssetDatabase.CreateAsset(qualityDatabase, DATABASE_FULL_PATH);
@@ -77,7 +77,7 @@ namespace Altamir.ItemSystem.Editor
             {
                 if (selectedItem == null)
                     return;
-                qualityDatabase.database.Add(selectedItem);
+                qualityDatabase.Add(selectedItem);
                 selectedItem = new ISQuality();
             }
 
